@@ -1,0 +1,32 @@
+version: "2"
+
+services:
+
+  wp_http_server:
+    image: nginx:1.13.3-alpine
+    container_name: wp_http_server
+    ports:
+     - "80:80"
+    volumes:
+     - ./www/wordpress/:/www
+     - ./configs/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    links:
+     - wp_server
+
+  wp_server:
+    image: dianjuar/wordpress:php7.1-fpm-alphine_wp-cli1.3.0
+    container_name: wp_server
+    volumes:
+      - ./www/wordpress/:/www
+      # - ./php/:/usr/local/etc/php/conf.d/
+    # links:
+    #   - db
+
+  # db:
+  #   image: mariadb
+  #   container_name: wordpress_mariadb
+  #   restart: always
+  #   volumes:
+  #     - ./wordpress/wordpress-db-data:/var/lib/mysql
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=password
