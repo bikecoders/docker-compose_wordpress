@@ -19,14 +19,25 @@ services:
     volumes:
       - ./www/wp_files/:/www
       # - ./php/:/usr/local/etc/php/conf.d/
-    # links:
-    #   - db
+    links:
+     - wp_mariadb
 
-  # db:
-  #   image: mariadb
-  #   container_name: wordpress_mariadb
-  #   restart: always
-  #   volumes:
-  #     - ./wordpress/wordpress-db-data:/var/lib/mysql
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=password
+  wp_mariadb:
+    image: mariadb
+    container_name: wp_mariadb
+    restart: always
+    volumes:
+     - ./www/wp_DB:/var/lib/mysql
+    environment:
+     - MYSQL_ROOT_PASSWORD=password
+
+  wp_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: wp_phpmyadmin
+    restart: always
+    environment:
+     - PMA_HOST=wp_mariadb
+    links:
+     - wp_mariadb
+    ports:
+     - "8888:80"
