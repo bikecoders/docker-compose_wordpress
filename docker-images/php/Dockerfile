@@ -13,6 +13,7 @@ RUN set -ex; \
 	apk add --no-cache --virtual .build-deps \
 		libjpeg-turbo-dev \
 		libpng-dev \
+		mysql-client \
 	; \
 	\
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
@@ -71,7 +72,11 @@ RUN set -ex; \
 	\
 wp --allow-root --version
 
+WORKDIR /www
+
+ENV PAGER more
+
 # Creating an "alias" to not run the wp command with the anoying --allow-root flag each time
 RUN echo "#!/bin/bash"  > /usr/bin/wp-cli
-RUN echo "wp --allow-root" >> /usr/bin/wp-cli
+RUN echo "wp \"\$@\"  --allow-root" >> /usr/bin/wp-cli
 RUN chmod +x /usr/bin/wp-cli
