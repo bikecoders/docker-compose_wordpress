@@ -14,7 +14,8 @@ services:
      - wp_server
 
   wp_server:
-    image: dianjuar/wordpress:php7.1-fpm-alphine_wp-cli1.3.0
+    # image: dianjuar/wordpress:php7.1-fpm-alphine_wp-cli1.3.0
+    build: ./docker-images/php/
     container_name: wp_server
     volumes:
       - ./www/wp_files/:/www
