@@ -29,7 +29,7 @@ services:
     volumes:
      - ./www/wp_DB:/var/lib/mysql
     environment:
-     - MYSQL_ROOT_PASSWORD=password
+     - MYSQL_ROOT_PASSWORD=YOUR_SUPER_SECURE_PASSWORD
 
   wp_phpmyadmin:
     image: phpmyadmin/phpmyadmin
