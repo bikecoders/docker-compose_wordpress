@@ -3,6 +3,9 @@
 
 #### This docker compose was made to have a modern WP dev environment which can be portable, easy to set up and focused on the use of `wp-cli`.
 
+> With `docker-compose up` it will run a phpmyadmin service, this is created with goal of facilitate the management of the DataBase (not all of us are command ninja) so we recommend, stop it when you are not using it.
+> `docker-compose stop wp_phpmyadmin`
+
 ## Steps to begin with a new WP project
 
 1. Create the user using phpmyadmin
@@ -41,3 +44,4 @@ MariaDB [(none)]> SHOW DATABASES;
 ```
 
 > Written with [StackEdit](https://stackedit.io/).
+
