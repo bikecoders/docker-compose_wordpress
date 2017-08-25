@@ -1,5 +1,8 @@
 FROM php:7.1-fpm-alpine
 
+# Update
+RUN apk update
+
 # docker-entrypoint.sh dependencies
 RUN apk add --no-cache \
 # in theory, docker-entrypoint.sh is POSIX-compliant, but priority is a working, consistent image
@@ -13,7 +16,6 @@ RUN set -ex; \
 	apk add --no-cache --virtual .build-deps \
 		libjpeg-turbo-dev \
 		libpng-dev \
-		mysql-client \
 	; \
 	\
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
@@ -71,6 +73,13 @@ RUN set -ex; \
 	apk del .fetch-deps; \
 	\
 wp --allow-root --version
+
+# Maybe on the command gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$WORDPRESS_CLI_GPG_KEY"; \ you will 
+# have an error, an issue opened in https://github.com/asdf-vm/asdf-nodejs/issues/38#issuecomment-298686787 suggest
+# that use hkp://ipv4.pool.sks-keyservers.net:80 instead of a.pool.sks-keyservers.net
+# NOT TESTED
+
+RUN apk add mysql-client 
 
 WORKDIR /www
 
