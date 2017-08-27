@@ -63,7 +63,7 @@ RUN set -ex; \
 	curl -o /usr/local/bin/wp.gpg -fSL "https://github.com/wp-cli/wp-cli/releases/download/v${WORDPRESS_CLI_VERSION}/wp-cli-${WORDPRESS_CLI_VERSION}.phar.gpg"; \
 	\
 	export GNUPGHOME="$(mktemp -d)"; \
-	gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$WORDPRESS_CLI_GPG_KEY"; \
+	gpg --keyserver hkp://ipv4.pool.sks-keyservers.net:80 --recv-keys "$WORDPRESS_CLI_GPG_KEY"; \
 	gpg --batch --decrypt --output /usr/local/bin/wp /usr/local/bin/wp.gpg; \
 	rm -r "$GNUPGHOME" /usr/local/bin/wp.gpg; \
 	\
@@ -76,7 +76,7 @@ wp --allow-root --version
 
 # Maybe on the command gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$WORDPRESS_CLI_GPG_KEY"; \ you will 
 # have an error, an issue opened in https://github.com/asdf-vm/asdf-nodejs/issues/38#issuecomment-298686787 suggest
-# that use hkp://ipv4.pool.sks-keyservers.net:80 instead of a.pool.sks-keyservers.net
+# that use hkp://ipv4.pool.sks-keyservers.net:80 instead of ha.pool.sks-keyservers.net
 # NOT TESTED
 
 RUN apk add mysql-client 
