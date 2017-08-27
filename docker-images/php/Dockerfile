@@ -84,7 +84,7 @@ WORKDIR /www
 
 ENV PAGER more
 
-# Creating an "alias" to not run the wp command with the anoying --allow-root flag each time
-RUN echo "#!/bin/bash"  > /usr/bin/wp-cli
-RUN echo "wp \"\$@\"  --allow-root" >> /usr/bin/wp-cli
-RUN chmod +x /usr/bin/wp-cli
+ARG UID
+
+RUN adduser -D -u "$UID" same_as_host -G www-data
+USER same_as_host
