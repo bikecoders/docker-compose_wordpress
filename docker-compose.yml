@@ -5,6 +5,7 @@ services:
   wp_http_server:
     image: nginx:1.13.3-alpine
     container_name: wp_http_server
+    restart: always
     ports:
      - "80:80"
     volumes:
