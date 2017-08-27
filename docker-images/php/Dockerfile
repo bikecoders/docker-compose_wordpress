@@ -1,8 +1,5 @@
 FROM php:7.1-fpm-alpine
 
-# Update
-RUN apk update
-
 # docker-entrypoint.sh dependencies
 RUN apk add --no-cache \
 # in theory, docker-entrypoint.sh is POSIX-compliant, but priority is a working, consistent image
@@ -79,7 +76,9 @@ wp --allow-root --version
 # that use hkp://ipv4.pool.sks-keyservers.net:80 instead of ha.pool.sks-keyservers.net
 # NOT TESTED
 
-RUN apk add mysql-client 
+# Install mysql client
+RUN apk update \
+	apk add mysql-client 
 
 WORKDIR /www
 
