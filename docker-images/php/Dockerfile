@@ -76,8 +76,8 @@ wp --allow-root --version
 # that use hkp://ipv4.pool.sks-keyservers.net:80 instead of ha.pool.sks-keyservers.net
 
 # Install mysql client
-RUN apk update \
-	apk add mysql-client 
+RUN apk update; \
+	apk add mysql-client; 
 
 WORKDIR /www
 
