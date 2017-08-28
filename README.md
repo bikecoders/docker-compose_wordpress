@@ -28,6 +28,22 @@ For be able to manipulate easily the files of wordpress you need to:
   - 1/6 --url=<**url**>: `localhost`
   - 2...6 - Your personal configuration
 
+## Changing the PHP version
+
+Super easy, stop everything.
+On the service `wp_server` on the section `args` leave uncommented the php version that you want a then
+
+`docker-compose build`
+
+An then...
+
+`export UID && docker-compose up`
+
+To verify the version run
+
+`docker exec wp_server php --version`
+
+
 ## DB useful commands
 ### Log into
 `docker exec -ti wp_mariadb mysql -h localhost -u root -pPASSWORD`
