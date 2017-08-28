@@ -15,10 +15,8 @@ services:
      - wp_server
 
   wp_server:
-    build:
-      context: ./docker-images/php/
-      args:
-        UID: ${UID}
+    build: ./docker-images/php/
+    user: ${UID}:www-data
     container_name: wp_server
     volumes:
       - ./www/wp_files/:/www

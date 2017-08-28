@@ -74,7 +74,6 @@ wp --allow-root --version
 # Maybe on the command gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$WORDPRESS_CLI_GPG_KEY"; \ you will 
 # have an error, an issue opened in https://github.com/asdf-vm/asdf-nodejs/issues/38#issuecomment-298686787 suggest
 # that use hkp://ipv4.pool.sks-keyservers.net:80 instead of ha.pool.sks-keyservers.net
-# NOT TESTED
 
 # Install mysql client
 RUN apk update \
@@ -83,8 +82,3 @@ RUN apk update \
 WORKDIR /www
 
 ENV PAGER more
-
-ARG UID
-
-RUN adduser -D -u "$UID" same_as_host -G www-data
-USER same_as_host
