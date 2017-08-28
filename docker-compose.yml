@@ -15,7 +15,12 @@ services:
      - wp_server
 
   wp_server:
-    build: ./docker-images/php/
+    build: 
+      context: ./docker-images/php/
+      args:
+        PHP_VERSION: 7.1
+        # PHP_VERSION: 7.0
+        # PHP_VERSION: 5.6
     user: ${UID}:www-data
     container_name: wp_server
     volumes:
