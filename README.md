@@ -15,34 +15,43 @@ For be able to manipulate easily the files of wordpress you need to:
 ## Steps to begin with a new WP project
 
 1. Create the user using phpmyadmin
-	- Set as `Host name` **=** `Use text field`= `wp_server`
-2. Download the WordPress core using `docker exec wp_server wp core download`
-3. Create your `wp-config` file `docker exec -ti wp_server wp core config --prompt`
-  - 1/12 --dbname=<**dbname**>: `YOUR_DB_NAME`
-  - 2/12 --dbuser=<**dbuser**>: `USER_CREATED_AT_1`
-  - 3/12 [--dbpass=<**dbpass**>]: `PASS_CREATED_AT_1`
-  - 4/12 [--dbhost=<**dbhost**>]: `wp_mariadb`
-  - 5...12 - Default values set by enter
-4. Create db `docker exec -ti wp_server wp db create`
-5. Install WordPress site `docker exec -ti wp_server wp core install --prompt`
-  - 1/6 --url=<**url**>: `localhost`
-  - 2...6 - Your personal configuration
+    - allow conection from any host
+    - create a database with the same name with all priviledges
+2. Download the WordPress core using 
+    - `docker exec wp_server wp core download`
+3. Create your `wp-config` file 
+    - `docker exec -ti wp_server wp core config --prompt`
+      - 1/12 --dbname=<**dbname**>: `YOUR_DB_NAME`
+      - 2/12 --dbuser=<**dbuser**>: `USER_CREATED_AT_1`
+      - 3/12 [--dbpass=<**dbpass**>]: `PASS_CREATED_AT_1`
+      - 4/12 [--dbhost=<**dbhost**>]: `wp_mariadb`
+      - 5...12 - Default values set by enter
+4. Install WordPress site 
+    - `docker exec -ti wp_server wp core install --prompt`
+      - 1/6 --url=<**url**>: `localhost`
+      - 2...6 - Your personal configuration
 
 ## Changing the PHP version
 
-Super easy, stop everything.
-On the service `wp_server` on the section `args` leave uncommented the php version that you want a then
+1. stop everything with 
+    - `docker-compose stop`
 
-`docker-compose build`
+2. On the `docker-compose.yml` file, on service `wp_server` on the section `args` leave uncommented the php version that you want
+    ```yml
+        args:
+            PHP_VERSION: 7.1
+            # PHP_VERSION: 7.0
+            # PHP_VERSION: 5.6
+    ```
+3. Then build the new image with:
+    - `docker-compose build`
+4. Run everything again:
+    - `export UID && docker-compose up`
 
-An then...
+5. To verify the version run
+    - `docker exec wp_server php --version`
 
-`export UID && docker-compose up`
-
-To verify the version run
-
-`docker exec wp_server php --version`
-
+------------------
 
 ## DB useful commands
 ### Log into
@@ -66,4 +75,3 @@ MariaDB [(none)]> SHOW DATABASES;
 ```
 
 > Written with [StackEdit](https://stackedit.io/).
-
