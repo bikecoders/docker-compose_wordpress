@@ -5,17 +5,18 @@ services:
   wp_http_server:
     image: nginx:1.13.3-alpine
     container_name: wp_http_server
+    restart: always
     ports:
      - "80:80"
     volumes:
-     - ./www/wp_files/:/www
-     - ./configs/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+     - ./www/wp_files/:/www:ro
+     - ./configs/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     links:
      - wp_server
 
   wp_server:
-    # image: dianjuar/wordpress:php7.1-fpm-alphine_wp-cli1.3.0
     build: ./docker-images/php/
+    user: ${UID}:www-data
     container_name: wp_server
     volumes:
       - ./www/wp_files/:/www
