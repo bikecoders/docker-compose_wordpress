@@ -1,0 +1,3 @@
+www/wp_files/*
+www/wp_files/.*
+www/wp_files/!.no-media
