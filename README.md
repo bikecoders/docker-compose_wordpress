@@ -1,5 +1,13 @@
 # Dev environment WordPress with Docker _**TIPS**_
 
+# Production Deploy Mode
+
+When step on this branch you expose the database port to the world, and the `dev_local` branch could use the wordmove to deploy the local database to the production site.
+
+> ## Important
+> Use this branch only for deploy proposes and always change to the master branch when you finish the deployment
+
+-------------------------------
 
 #### This docker compose was made to have a modern WP dev environment which can be portable, easy to set up and focused on the use of `wp`.
 
