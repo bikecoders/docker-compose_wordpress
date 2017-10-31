@@ -4,7 +4,6 @@ services:
 
   wp_http_server:
     image: nginx:1.13.3-alpine
-    container_name: wp_http_server
     restart: always
     ports:
      - "80:80"
@@ -25,7 +24,6 @@ services:
         # PHP_VERSION: 7.0
         # PHP_VERSION: 5.6
     user: ${UID}:www-data
-    container_name: wp_server
     volumes:
       - ./www/wp_files/:/www
       - ./configs/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
@@ -34,7 +32,6 @@ services:
 
   wp_mariadb:
     image: mariadb
-    container_name: wp_mariadb
     restart: always
     volumes:
      - ./www/wp_DB:/var/lib/mysql
@@ -43,7 +40,6 @@ services:
 
   wp_phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: wp_phpmyadmin
     restart: always
     environment:
      - PMA_HOST=wp_mariadb
