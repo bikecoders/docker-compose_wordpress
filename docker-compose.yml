@@ -47,3 +47,15 @@ services:
      - wp_mariadb
     ports:
      - "8888:80"
+
+  wp_wordmove:
+    build:
+      context: ./docker-images/wordmove/
+    command: 'echo "Hello From Wordmove"'
+    volumes:
+      - ./www/wp_files/:/www:ro
+      # Movefile
+      - ./www/wordmove/:/home:ro
+      - ${HOME}/.ssh/:/root/.ssh:ro
+    links:
+     - wp_mariadb
