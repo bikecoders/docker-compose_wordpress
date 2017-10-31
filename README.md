@@ -1,4 +1,4 @@
-# Dev environment WordPress with Docker _**TIPS**_ 
+# Dev environment WordPress with Docker _**TIPS**_
 
 
 #### This docker compose was made to have a modern WP dev environment which can be portable, easy to set up and focused on the use of `wp`.
@@ -17,23 +17,23 @@ For be able to manipulate easily the files of wordpress you need to:
 1. Create the user using phpmyadmin
     - allow conection from any host
     - create a database with the same name with all priviledges
-2. Download the WordPress core using 
-    - `docker exec wp_server wp core download`
-3. Create your `wp-config` file 
-    - `docker exec -ti wp_server wp core config --prompt`
+2. Download the WordPress core using
+    - `docker-compose exec wp_server wp core download`
+3. Create your `wp-config` file
+    - `docker-compose exec wp_server wp core config --prompt`
       - 1/12 --dbname=<**dbname**>: `YOUR_DB_NAME`
       - 2/12 --dbuser=<**dbuser**>: `USER_CREATED_AT_1`
       - 3/12 [--dbpass=<**dbpass**>]: `PASS_CREATED_AT_1`
       - 4/12 [--dbhost=<**dbhost**>]: `wp_mariadb`
       - 5...12 - Default values set by enter
-4. Install WordPress site 
-    - `docker exec -ti wp_server wp core install --prompt`
+4. Install WordPress site
+    - `docker-compose exec wp_server wp core install --prompt`
       - 1/6 --url=<**url**>: `localhost`
       - 2...6 - Your personal configuration
 
 ## Changing the PHP version
 
-1. stop everything with 
+1. stop everything with
     - `docker-compose stop`
 
 2. On the `docker-compose.yml` file, on service `wp_server` on the section `args` leave uncommented the php version that you want
@@ -50,28 +50,5 @@ For be able to manipulate easily the files of wordpress you need to:
 
 5. To verify the version run
     - `docker exec wp_server php --version`
-
-------------------
-
-## DB useful commands
-### Log into
-`docker exec -ti wp_mariadb mysql -h localhost -u root -pPASSWORD`
-
-### Create db
-`docker exec -ti wp_mariadb mysql -h localhost -u root -pPASSWORD`
-
-```
-Welcome to the MariaDB monitor.  Commands end with ; or \g.
-Your MariaDB connection id is 19
-Server version: 10.2.7-MariaDB-10.2.7+maria~jessie mariadb.org binary distribution
-
-Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-MariaDB [(none)]> CREATE DATABASE test CHARACTER SET utf8 COLLATE utf8_bin;
-
-MariaDB [(none)]> SHOW DATABASES;
-```
 
 > Written with [StackEdit](https://stackedit.io/).
