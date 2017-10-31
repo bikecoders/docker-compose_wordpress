@@ -4,34 +4,34 @@ services:
 
   wp_http_server:
     image: nginx:1.13.3-alpine
-    container_name: wp_http_server
     restart: always
     ports:
      - "80:80"
+     - 443:443
     volumes:
      - ./www/wp_files/:/www:ro
-     - ./configs/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+     - ./configs/nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
+     - ./configs/nginx/conf.d:/etc/nginx/conf.d:ro
+
     links:
      - wp_server
 
   wp_server:
-    build: 
+    build:
       context: ./docker-images/php/
       args:
         PHP_VERSION: 7.1
         # PHP_VERSION: 7.0
         # PHP_VERSION: 5.6
     user: ${UID}:www-data
-    container_name: wp_server
     volumes:
       - ./www/wp_files/:/www
-      # - ./php/:/usr/local/etc/php/conf.d/
+      - ./configs/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     links:
      - wp_mariadb
 
   wp_mariadb:
     image: mariadb
-    container_name: wp_mariadb
     restart: always
     volumes:
      - ./www/wp_DB:/var/lib/mysql
@@ -40,7 +40,6 @@ services:
 
   wp_phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: wp_phpmyadmin
     restart: always
     environment:
      - PMA_HOST=wp_mariadb
