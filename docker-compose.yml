@@ -33,6 +33,8 @@ services:
   wp_mariadb:
     image: mariadb
     restart: always
+    ports:
+     - "127.0.0.1:3306:3306"
     volumes:
      - ./www/wp_DB:/var/lib/mysql
     environment:
