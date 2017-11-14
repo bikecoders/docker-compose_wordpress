@@ -1,16 +1,18 @@
-# Dev environment WordPress with Docker _**TIPS**_
+# PRODUCTION WordPress environment with Docker
 
-
-#### This docker compose was made to have a modern WP dev environment which can be portable, easy to set up and focused on the use of `wp`.
+#### This docker compose was made to have a modern WP dev environment which can be portable, easy to set up and with HTTPS with letsencrypt.
 
 > With `docker-compose up` it will run a phpmyadmin service, this is created with goal of facilitate the management of the DataBase (not all of us are command ninja) so we recommend, stop it when you are not using it.
 > `docker-compose stop wp_phpmyadmin`
 
 ## Start everything
 
-For be able to manipulate easily the files of wordpress you need to:
+You need to pass several arguments such as:
+ - **DB_PASS** When the DB is raised this will be its root password
+ - **DOMAIN** Put your domain _your-domain.com_. This is needed to the https set up.
+ - **EMAIL** Put your email domain _email@your-domain.com_. This is needed to the https set up.
 
-`export UID && docker-compose up`
+`export DB_PASS=YOUR_SUPER_SECURE_PASSWORD export DOMAIN=your-domain.com && export EMAIL=email@your-domain.com && docker-compose up`
 
 ## Steps to begin with a new WP project
 
@@ -18,16 +20,16 @@ For be able to manipulate easily the files of wordpress you need to:
     - allow conection from any host
     - create a database with the same name with all priviledges
 2. Download the WordPress core using
-    - `docker-compose exec wp_server wp core download`
+    - `docker-compose run --rm --user=82 wp_server wp core download`
 3. Create your `wp-config` file
-    - `docker-compose exec wp_server wp core config --prompt`
+    - `docker-compose run --rm --user=82 wp_server wp core config --prompt`
       - 1/12 --dbname=<**dbname**>: `YOUR_DB_NAME`
       - 2/12 --dbuser=<**dbuser**>: `USER_CREATED_AT_1`
       - 3/12 [--dbpass=<**dbpass**>]: `PASS_CREATED_AT_1`
       - 4/12 [--dbhost=<**dbhost**>]: `wp_mariadb`
       - 5...12 - Default values set by enter
 4. Install WordPress site
-    - `docker-compose exec wp_server wp core install --prompt`
+    - `docker-compose run --rm --user=82 wp_server wp core install --prompt`
       - 1/6 --url=<**url**>: `localhost`
       - 2...6 - Your personal configuration
 
@@ -46,9 +48,9 @@ For be able to manipulate easily the files of wordpress you need to:
 3. Then build the new image with:
     - `docker-compose build`
 4. Run everything again:
-    - `export UID && docker-compose up`
+    - `export DB_PASS=YOUR_SUPER_SECURE_PASSWORD export DOMAIN=your-domain.com && export EMAIL=email@your-domain.com && docker-compose up`
 
 5. To verify the version run
-    - `docker exec wp_server php --version`
+    - `docker-compose run --rm wp_server php --version`
 
 > Written with [StackEdit](https://stackedit.io/).
