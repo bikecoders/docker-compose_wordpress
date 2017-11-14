@@ -49,6 +49,7 @@ services:
       - LETSENCRYPT_EMAIL=${EMAIL}
     networks:   
       - proxy-tier
+      - default
 
   wp_server:
     build:
@@ -62,8 +63,8 @@ services:
       - ./configs/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     links:
      - wp_mariadb
-    networks:
-     - proxy-tier
+    # networks:
+    #  - proxy-tier
 
   wp_mariadb:
     image: mariadb
@@ -77,8 +78,8 @@ services:
     # export DB_PASS=YOUR_SUPER_SECURE_PASSWORD && docker-compose up
     environment:
      - MYSQL_ROOT_PASSWORD=${DB_PASS}
-    networks:
-     - proxy-tier
+    # networks:
+    # - proxy-tier
 
   wp_phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -89,8 +90,8 @@ services:
      - wp_mariadb
     ports:
      - "8888:80"
-    networks:
-     - proxy-tier
+    # networks:
+    # - proxy-tier
 
 networks:
   proxy-tier:
