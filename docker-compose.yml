@@ -25,8 +25,8 @@ services:
         # PHP_VERSION: 5.6
     user: ${UID}:www-data
     volumes:
-      - ./www/wp_files/:/www
-      - ./configs/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+     - ./www/wp_files/:/www
+     - ./configs/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     links:
      - wp_mariadb
 
@@ -55,9 +55,9 @@ services:
       context: ./docker-images/wordmove/
     command: 'echo "Hello From Wordmove"'
     volumes:
-      - ./www/wp_files/:/www
-      # Movefile
-      - ./configs/wordmove/Movefile:/home:ro
-      - ${HOME}/.ssh/:/root/.ssh:ro
+     - ./www/wp_files/:/www
+     # Movefile
+     - ./configs/wordmove/:/home/:ro
+     - ${HOME}/.ssh/:/root/.ssh:ro
     links:
      - wp_mariadb
