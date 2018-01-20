@@ -53,10 +53,10 @@ You need to pass several arguments such as:
  - **DOMAIN** Put your domain _your-domain.com_. This is needed to the https set up.
  - **EMAIL** Put your email domain _email@your-domain.com_. This is needed to the https set up.
 
-`export DB_PASS=YOUR_SUPER_SECURE_PASSWORD && export DOMAIN=your-domain.com && export EMAIL=email@your-domain.com && docker-compose --file docker-compose-production.yml up`
+`export DB_PASS=YOUR_SUPER_SECURE_PASSWORD && export DOMAIN=your-domain.com && export EMAIL=email@your-domain.com && docker-compose --file docker-compose-production.yml up -d && docker-compose --file docker-compose-production.yml stop wp_phpmyadmin`
 
-> This will run a phpmyadmin service, this is created with goal of facilitate the management of the DataBase (not all of us are command ninja) so we recommend, stop it when you are not using it.
-> `docker-compose stop wp_phpmyadmin`
+> This will stop the phpmyadmin service for security reasons, if you want to run it just
+> `docker-compose --file docker-compose-production.yml start wp_phpmyadmin`
 
 --------------------------
 
