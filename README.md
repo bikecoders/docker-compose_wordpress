@@ -9,7 +9,7 @@ You need to pass several arguments such as:
 
 `export DB_PASS=YOUR_SUPER_SECURE_PASSWORD && export UID && docker-compose up`
 
-> With `docker-compose up` it will run a phpmyadmin service, this is created with goal of facilitate the management of the DataBase (not all of us are command ninja). You can stop it when you are not using it with `docker-compose stop wp_phpmyadmin`
+> With `docker-compose up` it will run a phpmyadmin service, this is created with goal of facilitate the management of the DataBase (not all of us are command ninja). You can stop it when you are not using it with `docker-compose stop phpmyadmin`
 
 ## Configuring Wordmove
 
@@ -24,7 +24,7 @@ We recommend to have a repo for your WordPress site, so the themes and plugins s
 
 ### Login in to the container
 
-`docker-compose run --rm wp_wordmove /bin/bash`
+`docker-compose run --rm wordmove /bin/bash`
 
 ### Creating Movefile
 
@@ -53,10 +53,10 @@ You need to pass several arguments such as:
  - **DOMAIN** Put your domain _your-domain.com_. This is needed to the https set up.
  - **EMAIL** Put your email domain _email@your-domain.com_. This is needed to the https set up.
 
-`export DB_PASS=YOUR_SUPER_SECURE_PASSWORD && export DOMAIN=your-domain.com && export EMAIL=email@your-domain.com && docker-compose --file docker-compose-production.yml up -d && docker-compose --file docker-compose-production.yml stop wp_phpmyadmin`
+`export DB_PASS=YOUR_SUPER_SECURE_PASSWORD && export DOMAIN=your-domain.com && export EMAIL=email@your-domain.com && docker-compose --file docker-compose-production.yml up -d && docker-compose --file docker-compose-production.yml stop phpmyadmin`
 
 > This will stop the phpmyadmin service for security reasons, if you want to run it just
-> `docker-compose --file docker-compose-production.yml start wp_phpmyadmin`
+> `docker-compose --file docker-compose-production.yml start phpmyadmin`
 
 --------------------------
 
@@ -76,7 +76,7 @@ In this section you will find development and production common features.
       - 1/12 --dbname=<**dbname**>: `YOUR_DB_NAME`
       - 2/12 --dbuser=<**dbuser**>: `USER_CREATED_AT_1`
       - 3/12 [--dbpass=<**dbpass**>]: `PASS_CREATED_AT_1`
-      - 4/12 [--dbhost=<**dbhost**>]: `wp_mariadb`
+      - 4/12 [--dbhost=<**dbhost**>]: `mariadb`
       - 5...12 - Default values set by enter
 4. Install WordPress site
     - `docker-compose run --rm --user=82 wp_server wp core install --prompt`
