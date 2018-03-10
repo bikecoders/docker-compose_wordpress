@@ -1,0 +1,93 @@
+global:
+  sql_adapter: default
+
+local:
+  vhost: http://localhost
+  wordpress_path: /www/ # use an absolute path here -- DONT CHANGE --
+
+  database:
+    name: DB_NAME_LOCAL
+    user: DB_USERNAME_LOCAL
+    password: "DB_PASSWORD_LOCAL" # could be blank, so always use quotes around
+    host: mariadb # -- DONT CHANGE --
+
+production:
+  vhost: http://YOUR_DOMAIN
+  wordpress_path: YOUR_CUSTOM_PATH/www/wp_files/ # use an absolute path here. SHOULD ALWAYS ENDS WITH '/www/wp_files/'
+
+  database:
+    name: DB_NAME_PROD
+    user: DB_USERNAME_PROD
+    password: "DB_PASSWORD_PROD" # could be blank, so always use quotes around
+    host: 127.0.0.1 # -- DONT CHANGE --
+    port: "3306" # -- DONT CHANGE --
+    # mysqldump_options: --max_allowed_packet=1G # Only available if using SSH
+
+  exclude:
+    - '.git/'
+    - '.gitignore'
+    - '.sass-cache/'
+    - 'node_modules/'
+    - 'bin/'
+    - 'tmp/*'
+    - 'Gemfile*'
+    - 'Movefile'
+    - 'movefile'
+    - 'movefile.yml'
+    - 'movefile.yaml'
+    - 'wp-config.php'
+    - 'wp-content/*.sql.gz'
+    - '*.orig'
+
+  # paths: # you can customize wordpress internal paths
+  #   wp_content: wp-content
+  #   uploads: wp-content/uploads
+  #   plugins: wp-content/plugins
+  #   mu_plugins: wp-content/mu-plugins
+  #   themes: wp-content/themes
+  #   languages: wp-content/languages
+
+  ssh:
+    host: YOUR_DOMAIN
+    user: SSH_USER
+  #  password: SSH_PASSWORD # password is optional, will use public keys if available.
+  #   port: 22 # Port is optional
+  #   rsync_options: --verbose --itemize-changes# Additional rsync options, optional
+  #   gateway: # Gateway is optional
+  #     host: host
+  #     user: user
+  #     password: password # password is optional, will use public keys if available.
+
+  # ftp:
+  #   user: user
+  #   password: password
+  #   host: host
+  #   passive: true
+  #   scheme: ftps # default ftp
+
+  # hooks: # Remote hooks won't work with FTP
+  #   push:
+  #     before:
+  #       local:
+  #         - 'echo "Do something locally before push"'
+  #       remote:
+  #         - 'echo "Do something remotely before push"'
+  #     after:
+  #       local:
+  #         - 'echo "Do something locally after push"'
+  #       remote:
+  #         - 'echo "Do something remotely after push"'
+  #   pull:
+  #     before:
+  #       local:
+  #         - 'echo "Do something locally before pull"'
+  #       remote:
+  #         - 'echo "Do something remotely before pull"'
+  #     after:
+  #       local:
+  #         - 'echo "Do something locally after pull"'
+  #       remote:
+  #         - 'echo "Do something remotely after pull"'
+
+# staging: # multiple environments can be specified
+#   [...]

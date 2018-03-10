@@ -56,7 +56,9 @@ services:
     volumes:
      - ./www/wp_files/:/www
      # Movefile
-     - ./configs/wordmove/:/home/:ro
+     - ./configs/wordmove/:/home/
+     # For ssh
      - ${HOME}/.ssh/:/root/.ssh:ro
+     - /etc/passwd:/etc/passwd:ro
     links:
      - mariadb
