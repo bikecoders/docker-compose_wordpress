@@ -3,12 +3,11 @@ version: "2"
 
 services:
 
-  wp_http_server:
+  http_server:
     image: nginx:1.13.3-alpine
     restart: always
     ports:
      - "80:80"
-     - 443:443
     volumes:
      - ./www/wp_files/:/www:ro
      - ./configs/nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
@@ -28,9 +27,9 @@ services:
      - ./www/wp_files/:/www
      - ./configs/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     links:
-     - wp_mariadb
+     - mariadb
 
-  wp_mariadb:
+  mariadb:
     image: mariadb
     restart: always
     ports:
@@ -40,24 +39,26 @@ services:
     environment:
      - MYSQL_ROOT_PASSWORD=${DB_PASS}
 
-  wp_phpmyadmin:
+  phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
     environment:
-     - PMA_HOST=wp_mariadb
+     - PMA_HOST=mariadb
     links:
-     - wp_mariadb
+     - mariadb
     ports:
      - "8888:80"
 
-  wp_wordmove:
+  wordmove:
     build:
       context: ./docker-images/wordmove/
     command: 'echo "Hello From Wordmove"'
     volumes:
      - ./www/wp_files/:/www
      # Movefile
-     - ./configs/wordmove/:/home/:ro
+     - ./configs/wordmove/:/home/
+     # For ssh
      - ${HOME}/.ssh/:/root/.ssh:ro
+     - /etc/passwd:/etc/passwd:ro
     links:
-     - wp_mariadb
+     - mariadb
