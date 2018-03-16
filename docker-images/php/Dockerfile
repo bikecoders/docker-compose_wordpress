@@ -50,8 +50,8 @@ VOLUME /var/www/html
 # sub   2048R/45F9CDE2 2016-01-07
 ENV WORDPRESS_CLI_GPG_KEY 3B9191625F3B1F1BF5DD3B47673A02042F6B6B7F
 
-ENV WORDPRESS_CLI_VERSION 1.3.0
-ENV WORDPRESS_CLI_SHA512 710d41171358fbaff5962e23d1acfda1327e03cbc59bb7c5d8a7ff87fee009ac678bc8f8e690bc743f40bc54ae8907f1f16e4e5abd166c05dc7769cd15b00084
+ENV WORDPRESS_CLI_VERSION 1.5.0
+ENV WORDPRESS_CLI_SHA512 9385c63ab835c7c450529035cdb1f524b5878a67c7565c3497628e5ec4ec07ae4a34ef25c59a9e7d6edea7cdb039fcef7a1f731b922782b8c70418480bdff122
 
 RUN set -ex; \
 	\
@@ -73,13 +73,13 @@ RUN set -ex; \
 	\
 wp --allow-root --version
 
-# Maybe on the command gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$WORDPRESS_CLI_GPG_KEY"; \ you will 
+# Maybe on the command gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$WORDPRESS_CLI_GPG_KEY"; \ you will
 # have an error, an issue opened in https://github.com/asdf-vm/asdf-nodejs/issues/38#issuecomment-298686787 suggest
 # that use hkp://ipv4.pool.sks-keyservers.net:80 instead of ha.pool.sks-keyservers.net
 
 # Install mysql client
 RUN apk update; \
-	apk add mysql-client; 
+	apk add mysql-client;
 
 WORKDIR /www
 
