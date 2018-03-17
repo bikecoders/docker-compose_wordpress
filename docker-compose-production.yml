@@ -53,6 +53,7 @@ services:
      - default
 
   wp_server:
+    restart: always
     build:
       context: ./docker-images/php/
       args:
