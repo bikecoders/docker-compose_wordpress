@@ -80,7 +80,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    restart: always
+    restart: on-failure
     environment:
      - PMA_HOST=mariadb
     links:
